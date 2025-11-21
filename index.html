@@ -32,6 +32,23 @@
         .btn-dl { background: #4caf50; }
         .btn-mail { background: #005780; }
         #qrcode { position: absolute; top: -9999px; left: -9999px; }
+    /* ▼▼▼ 手機版適應規則 (RWD) ▼▼▼ */
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { padding: 20px; gap: 20px; }
+            /* 強制兩欄變成上下堆疊，寬度 100% */
+            .left-panel, .right-panel {
+                flex: 1 1 100%;
+                min-width: 100% !important; /* 覆蓋原本的 500px 限制 */
+                max-height: none; /* 移除高度限制，讓表單可以往下滑 */
+                padding-right: 0;
+            }
+            /* 調整按鈕大小，讓手指好點 */
+            button { padding: 20px; font-size: 1.2rem; }
+            /* 讓預覽框自動縮放 */
+            .svg-wrapper { width: 100%; height: auto; }
+        }
+        /* ▲▲▲ 手機版規則結束 ▲▲▲ */
     </style>
 </head>
 <body>
@@ -756,4 +773,5 @@
 </script>
 
 </body>
+
 </html>
