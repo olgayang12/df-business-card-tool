@@ -760,12 +760,32 @@
         setTimeout(() => { downloadOne('previewBack', '背面'); }, 500);
     }
 
-    function sendMail() {
+function sendMail() {
         const name = document.getElementById('inpName').value;
         const email = "olga.yang@df-recycle.com";
+        
+        // 1. 先自動下載檔案
+        downloadAll();
+
+        // 2. 設定信件內容
         const subject = encodeURIComponent(`【名片印製申請】${name}`);
-        const body = encodeURIComponent(`Olga 您好：\n\n我是 ${name}，請協助印製名片。\n已附上 正面/背面 兩份 SVG 檔案，請查收。\n\n(⚠️ 檔案為 RGB 格式，印刷前請協助轉為 CMYK)`);
-        window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+        const body = encodeURIComponent(
+`Olga 您好：
+
+我是 ${name}，請協助印製名片。
+
+📌【重要】：名片原始檔 (.svg) 剛剛已經自動下載到我的電腦了。
+我已將檔案手動附加於此信件中，請查收。
+
+(⚠️ 備註：檔案目前為 RGB 格式，印刷前請協助轉為 CMYK)`
+        );
+
+        // 3. 跳出提示並開啟信箱 (延遲 1 秒確保下載先開始)
+        setTimeout(() => {
+            if(confirm(`✅ 名片檔案已自動下載！\n\n⚠️ 系統限制無法自動「夾帶附件」。\n\n請您現在將剛剛下載的 SVG 檔案，\n手動「拖曳」到接下來開啟的信件視窗中。\n\n準備好了嗎？`)) {
+                window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+            }
+        }, 1000);
     }
     
     window.forceUpdateQR = forceUpdateQR;
@@ -776,4 +796,5 @@
 </body>
 
 </html>
+
 
